@@ -14,7 +14,7 @@ import lombok.Data;
 public class Booking {
 
 	@Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer  numberOfSerats;
 	private LocalDateTime bookingTime;
