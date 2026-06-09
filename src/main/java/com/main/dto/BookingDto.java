@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class BookingDto {
 	
-	private Integer  numberOfSerats;
+	private Integer  numberOfSeats;
 	private LocalDateTime bookingTime;
 	private Double price;
 	private BookingStatus  bookingStatus;
