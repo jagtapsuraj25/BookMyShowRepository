@@ -3,6 +3,8 @@ package com.main.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,8 @@ public class Booking {
 	private Double price;
 	private BookingStatus  bookingStatus;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name="booking_seat-numbers")
 	private List<String> seatNumber;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
