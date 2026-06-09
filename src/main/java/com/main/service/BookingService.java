@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.main.dto.BookingDto;
 import com.main.entity.Booking;
+import com.main.entity.BookingStatus;
 
 public interface BookingService {
 	
@@ -20,7 +21,8 @@ public interface BookingService {
 
 	public Booking cancelBooking(Long id);
 		
-		
+
+	public List<Booking> getBookingByStatus(BookingStatus bookingStatus);	
 		
 	
 }

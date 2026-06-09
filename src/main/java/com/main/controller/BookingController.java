@@ -37,27 +37,33 @@ public class BookingController {
 		return ResponseEntity.ok(bookingService.createBooking(bookingDto)) ;
 	}
 	
-	@GetMapping("getUserBookings/{id}")
+	@GetMapping("/getUserBookings/{id}")
 	public ResponseEntity<List<Booking>> getUserBookings(@PathVariable Long id){
 		
 		return ResponseEntity.ok(bookingService.getUserBookings(id));
 	}
 	
-	@GetMapping("getShowBookings/{id}")
+	@GetMapping("/getShowBookings/{id}")
 	public ResponseEntity<List<Booking>> getShowBookings(@PathVariable Long id){
 		
 		return ResponseEntity.ok(bookingService.getShowBookings(id));
 	}
 	
-	@PutMapping("{id}/confirmBooking")
+	@PutMapping("/confirmBooking/{id}")
 	public ResponseEntity<Booking> confirmBooking(@PathVariable Long id){
 		
 		return ResponseEntity.ok(bookingService.confirmBooking(id));
 	}
 	
-	@PutMapping("{id}/(cancelBooking)")
+	@PutMapping("/cancelBooking/{id}")
 	public ResponseEntity<Booking> cancelBooking(@PathVariable Long id){
 		
 		return ResponseEntity.ok(bookingService.cancelBooking(id));
+	}
+	
+	@GetMapping("/getBookingStatus/{bookingStatus}")
+	public ResponseEntity<List<Booking>> getBookingByStatus(@PathVariable BookingStatus bookingStatus){
+		
+		return ResponseEntity.ok(bookingService.getBookingByStatus(bookingStatus));
 	}
 }
