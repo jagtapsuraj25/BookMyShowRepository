@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.main.entity.BookingStatus;
 
+import lombok.Data;
+@Data
 public class BookingDto {
 	
 	private Integer  numberOfSerats;
