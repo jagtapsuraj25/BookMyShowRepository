@@ -11,7 +11,7 @@ public class BookingDto {
 	
 	private Integer  numberOfSeats;
 	private LocalDateTime bookingTime;
-	private Double price;
+	private Integer price;
 	private BookingStatus  bookingStatus;
 	private List<String> seatNumber;
 	private Long userId;

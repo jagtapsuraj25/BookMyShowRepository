@@ -1,6 +1,7 @@
 package com.main.serviceIMPL;
 
 import java.security.PublicKey;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import com.main.dto.BookingDto;
 import com.main.entity.Booking;
 import com.main.entity.BookingStatus;
 import com.main.entity.Show;
+import com.main.entity.User;
 import com.main.repository.BookingRepository;
 import com.main.repository.ShowRepository;
 import com.main.repository.UserRepository;
@@ -41,10 +43,25 @@ public class BookingServiceIMPL implements BookingService {
 		if (bookingDto.getNumberOfSeats().SIZE != bookingDto.getNumberOfSeats()) {
 			throw new RuntimeException("seat number and number of Seats must be equals");
 		}
+		
 		validateDuplicateSeats(show.getId(), bookingDto.getSeatNumber());
 		
+		User user= userRepository.findById(bookingDto.getUserId())
+				                 .orElseThrow(()-> new RuntimeException("user not found"));
 		
+		Booking booking = new Booking();
+		booking.setUsers(user);
+		booking.setShow(show);
+		booking.setNumberOfSeats(bookingDto.getNumberOfSeats());
+		booking.setSeatNumber(bookingDto.getSeatNumber());
+		booking.setPrice(calculateTotalAmount(show.getPrice(),bookingDto.getNumberOfSeats()));
+		booking.setBookingTime(LocalDateTime.now());
+		booking.setBookingStatus(BookingStatus.Pending);
+		
+		return bookingRepository.save(booking);
 	}
+	
+	
 
 	public boolean isSeatsAvialable(Long showid, Integer numberOfSeats) {
 
@@ -76,10 +93,15 @@ public class BookingServiceIMPL implements BookingService {
 			
 		}
 
+	public Integer calculateTotalAmount(Integer price, Integer numberOfSeats) {
+		
+		return price * numberOfSeats;
+	}
+	
 	@Override
 	public List<Booking> getUserBookings(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return userRepository.findById(id).get().getBookings();
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public class Show {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private LocalDateTime showTime;
-	private Double price;
+	private Integer price;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="movie_id", nullable = false)

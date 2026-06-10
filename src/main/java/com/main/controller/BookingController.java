@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.main.dto.BookingDto;
 import com.main.entity.Booking;
+import com.main.entity.BookingStatus;
 import com.main.repository.ShowRepository;
 import com.main.service.BookingService;
 

@@ -7,7 +7,7 @@ import lombok.Data;
 public class ShowDto {
 
 	private LocalDateTime showTime;
-	private Double price;
+	private Integer price;
 	private Long movieId;
 	private Long theaterId;
 }

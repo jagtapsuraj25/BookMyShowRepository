@@ -23,7 +23,7 @@ public class Booking {
 	private Long id;
 	private Integer  numberOfSeats;
 	private LocalDateTime bookingTime;
-	private Double price;
+	private Integer price;
 	private BookingStatus  bookingStatus;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
