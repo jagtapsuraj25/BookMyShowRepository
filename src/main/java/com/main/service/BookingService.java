@@ -21,7 +21,6 @@ public interface BookingService {
 
 	public Booking cancelBooking(Long id);
 		
-
 	public List<Booking> getBookingByStatus(BookingStatus bookingStatus);	
 		
 	

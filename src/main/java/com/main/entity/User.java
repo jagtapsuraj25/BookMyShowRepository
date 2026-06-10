@@ -1,6 +1,7 @@
 package com.main.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,8 +19,14 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userid;
+	private String name;
+	private String email;
+	private String password;
+	
+	private Set<String> roles;
 	
 	@OneToMany(mappedBy = "user")
 	private List<Booking> bookings;
+
 	
 }

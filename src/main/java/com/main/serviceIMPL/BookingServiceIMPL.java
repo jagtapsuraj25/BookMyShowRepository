@@ -99,33 +99,66 @@ public class BookingServiceIMPL implements BookingService {
 	}
 	
 	@Override
-	public List<Booking> getUserBookings(Long id) {
+	public List<Booking> getUserBookings(Long userid) {
 
-		return userRepository.findById(id).get().getBookings();
+		   
+		
+		return bookingRepository.findByUserId(userid);
 	}
 
 	@Override
-	public List<Booking> getShowBookings(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Booking> getShowBookings(Long showid) {
+		
+		return bookingRepository.findByShowId(showid);
 	}
 
 	@Override
 	public Booking confirmBooking(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	 
+		Booking booking = bookingRepository.findById(id)
+				.orElseThrow(()-> new RuntimeException("Booking not found"));
+				
+		  if(booking.getBookingStatus() != BookingStatus.Pending) {
+			  throw new RuntimeException("booking is not pending status");
+		  }
+		
+		//Booking status is confirm ask the payment  
+		  booking.setBookingStatus(BookingStatus.Confirmed);
+		return bookingRepository.save(booking);
 	}
 
 	@Override
 	public Booking cancelBooking(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Booking booking = bookingRepository.findById(id)
+				.orElseThrow(()-> new RuntimeException("Not Booking Found"));
+		
+		validateCancellation(booking);	 
+		
+		booking.setBookingStatus(BookingStatus.Canceled);	
+		return bookingRepository.save(booking);
 	}
 
+	public void validateCancellation(Booking booking) {
+		
+		LocalDateTime showTime =booking.getShow().getShowTime();
+		LocalDateTime deadLineTime = showTime.minusHours(2);
+		
+		if(LocalDateTime.now().isAfter(deadLineTime)) {
+			 
+			throw new RuntimeException("Cannot cancel the booking");
+		}
+		
+		if(booking.getBookingStatus() == BookingStatus.Canceled) {
+			throw new RuntimeException("booking is already canceled");
+		}
+	}
+	
+	
 	@Override
 	public List<Booking> getBookingByStatus(BookingStatus bookingStatus) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return bookingRepository.findByBookingStatus(bookingStatus);
 	}
 
 }
